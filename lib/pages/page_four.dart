@@ -5,9 +5,9 @@ class PageFour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.deepOrangeAccent,
-      body: Center(
+    return Scaffold(
+      backgroundColor: Colors.deepOrangeAccent.withOpacity(0.7),
+      body: const Center(
         child: Text(
           "Setting Page",
           style: TextStyle(fontSize: 30.0),

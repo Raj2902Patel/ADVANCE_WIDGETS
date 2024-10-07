@@ -76,11 +76,13 @@ class _FloatingActionButtonPageState extends State<FloatingActionButtonPage> {
             ],
           ),
         ),
-        body: const TabBarView(children: [
-          PageOne(),
-          PageTwo(),
-          PageFour(),
-        ]),
+        body: const TabBarView(
+          children: [
+            PageOne(),
+            PageTwo(),
+            PageFour(),
+          ],
+        ),
       ),
     );
   }

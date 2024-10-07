@@ -155,7 +155,10 @@ class _HomePageState extends State<HomePage> {
                                     Text("hello@example.com"),
                                   ],
                                 ),
-                                Icon(Icons.info)
+                                Icon(
+                                  Icons.person,
+                                  size: 30,
+                                )
                               ],
                             ),
                           ],
@@ -193,12 +196,13 @@ class _HomePageState extends State<HomePage> {
               title: _selectedIndex == 1
                   ? const Text('Favourite')
                   : const Text(""),
-              activeColor: Colors.purpleAccent,
+              activeColor: Colors.cyan,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
               icon: const Icon(Icons.shop),
-              title: _selectedIndex == 2 ? const Text("Shop") : const Text(""),
+              title:
+                  _selectedIndex == 2 ? const Text("Shopping") : const Text(""),
               activeColor: Colors.redAccent,
               textAlign: TextAlign.center,
             ),
