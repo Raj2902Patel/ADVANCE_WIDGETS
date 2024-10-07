@@ -15,7 +15,7 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Text Field!"),
+        title: const Text("Text Field!"),
       ),
       body: Column(
         children: [
@@ -34,9 +34,11 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
           const SizedBox(),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context, _nameController.text);
+              if (_nameController.text != "") {
+                Navigator.pop(context, _nameController.text);
+              }
             },
-            child: Text("Save!"),
+            child: const Text("Save!"),
           ),
         ],
       ),

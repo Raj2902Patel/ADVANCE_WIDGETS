@@ -14,7 +14,7 @@ class _PageOneState extends State<PageOne> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.blueGrey.withOpacity(0.6),
       body: Padding(
         padding: const EdgeInsets.all(16.0), // Padding for better layout
         child: Center(
@@ -29,12 +29,15 @@ class _PageOneState extends State<PageOne> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
+              const SizedBox(
+                height: 15,
+              ),
               OutlinedButton.icon(
                 onPressed: () async {
                   final result = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TextFormFieldPage(),
+                      builder: (context) => const TextFormFieldPage(),
                     ),
                   );
                   if (result != null) {
@@ -47,9 +50,9 @@ class _PageOneState extends State<PageOne> {
                 label: const Text(
                   "Form Field!",
                   style: TextStyle(
-                    color: Colors.brown,
+                    color: Colors.black,
                     fontSize: 20.0,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
