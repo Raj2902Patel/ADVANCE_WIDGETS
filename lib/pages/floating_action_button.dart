@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:week_4/pages/page_four.dart';
-import 'package:week_4/pages/page_one.dart';
-import 'package:week_4/pages/page_two.dart';
+import 'package:week_4/main_pages/setting.dart';
+import 'package:week_4/main_pages/favourite.dart';
+import 'package:week_4/pages/carousel_slider.dart';
 
 class FloatingActionButtonPage extends StatefulWidget {
   const FloatingActionButtonPage({super.key});
@@ -78,9 +78,9 @@ class _FloatingActionButtonPageState extends State<FloatingActionButtonPage> {
         ),
         body: const TabBarView(
           children: [
-            PageOne(),
+            CarouselSliderPage(),
             PageTwo(),
-            PageFour(),
+            SettingPage(),
           ],
         ),
       ),
