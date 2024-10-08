@@ -24,7 +24,25 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
             child: TextFormField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: 'Enter text',
+                prefixIcon: const Icon(Icons.person),
+                labelText: 'Enter Your Name',
+                labelStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: const BorderSide(
+                    color: Colors.black,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                  borderSide: const BorderSide(
+                    color: Colors.blueGrey,
+                  ),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -33,12 +51,21 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
           ),
           const SizedBox(),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black.withOpacity(0.5),
+            ),
             onPressed: () {
               if (_nameController.text != "") {
                 Navigator.pop(context, _nameController.text);
               }
             },
-            child: const Text("Save!"),
+            child: const Text(
+              "Save!",
+              style: TextStyle(
+                fontSize: 22.0,
+                color: Colors.white,
+              ),
+            ),
           ),
         ],
       ),

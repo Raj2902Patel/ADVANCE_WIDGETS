@@ -33,6 +33,13 @@ class _PageOneState extends State<PageOne> {
                 height: 15,
               ),
               OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(
+                    color: Colors
+                        .black, // Change this to your desired border color
+                    width: 0.8, // Change the width of the border if needed
+                  ),
+                ),
                 onPressed: () async {
                   final result = await Navigator.push(
                     context,
