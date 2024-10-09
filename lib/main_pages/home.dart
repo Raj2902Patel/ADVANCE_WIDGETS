@@ -9,7 +9,11 @@ class PageOne extends StatefulWidget {
 }
 
 class _PageOneState extends State<PageOne> {
-  String? _textFieldData;
+  String name = '';
+  String number = '';
+  String email = '';
+  String password = '';
+  String cpassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,40 @@ class _PageOneState extends State<PageOne> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                _textFieldData ?? 'No data entered',
+                name.isNotEmpty ? "Name is $name" : '',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                number.isNotEmpty ? "Number is $number" : '',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                email.isNotEmpty ? "Email Address is $email" : '',
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                password.isNotEmpty ? "Password is $password" : '',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20.0,
@@ -49,8 +86,14 @@ class _PageOneState extends State<PageOne> {
                   );
                   if (result != null) {
                     setState(() {
-                      _textFieldData = result;
+                      name = result[
+                          'name']; // Make sure result.name is correctly accessed
+                      number = result['number'];
+                      email = result['email'];
+                      password = result['password'];
+                      cpassword = result['cpassword'];
                     });
+                    print(cpassword);
                   }
                 },
                 icon: const Icon(Icons.next_plan_outlined, color: Colors.black),
