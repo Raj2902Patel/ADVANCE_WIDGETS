@@ -47,22 +47,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     fontSize: 25.0,
                   ),
                 ),
-                TyperAnimatedText(
-                  "Loading...",
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25.0,
-                  ),
-                ),
-                TyperAnimatedText(
-                  "Loading...",
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25.0,
-                  ),
-                ),
               ],
               isRepeatingAnimation: true,
               // totalRepeatCount: 1000,

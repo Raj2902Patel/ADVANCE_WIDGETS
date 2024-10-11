@@ -52,7 +52,7 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
                     fit: BoxFit.fill,
                     placeholder: (context, url) => Center(
                       child: Lottie.asset('assets/images/loading.json',
-                          height: 80, width: 100),
+                          height: 50, width: 50),
                     ), // Loading placeholder
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,

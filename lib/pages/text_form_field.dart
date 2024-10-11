@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:week_4/home_page.dart';
 
 class TextFormFieldPage extends StatefulWidget {
   const TextFormFieldPage({super.key});
@@ -10,6 +12,10 @@ class TextFormFieldPage extends StatefulWidget {
 
 class _TextFormFieldPageState extends State<TextFormFieldPage> {
   final _formkey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  bool _isSubmited = false;
+  bool _isPasswordVisible = false;
+  bool _isCPasswordVisible = false;
 
   String? name;
   int? number;
@@ -23,10 +29,19 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmController = TextEditingController();
 
+  _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', _nameController.text);
+    prefs.setString('email', _emailController.text);
+    prefs.setString('number', _numberController.text);
+    prefs.setString('password', _passwordController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text("Text Form Field"),
       ),
@@ -50,7 +65,9 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                       onSaved: (value) {
                         name = value;
                       },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: _isSubmited
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       controller: _nameController,
                       style: const TextStyle(
                         color: Colors.black,
@@ -121,7 +138,9 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                           number = int.parse(value!);
                         });
                       },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: _isSubmited
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       controller: _numberController,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
@@ -199,7 +218,9 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                       onSaved: (value) {
                         email = value;
                       },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: _isSubmited
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       style: const TextStyle(
@@ -284,8 +305,11 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                       onSaved: (value) {
                         password = value; // Save the password value
                       },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      obscureText: true, // Hide the password input
+                      autovalidateMode: _isSubmited
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
+                      obscureText:
+                          !_isPasswordVisible, // Hide the password input
                       controller:
                           _passwordController, // Your TextEditingController
                       style: const TextStyle(
@@ -298,6 +322,19 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                           fontSize: 20.0,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 13.0),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
+                            icon: _isPasswordVisible
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
+                          ),
                         ),
                         errorStyle: const TextStyle(
                           color: Colors.red,
@@ -367,8 +404,11 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                       onSaved: (value) {
                         password = value; // Save the password value
                       },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      obscureText: true, // Hide the password input
+                      autovalidateMode: _isSubmited
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
+                      obscureText:
+                          !_isCPasswordVisible, // Hide the password input
                       controller:
                           _confirmController, // Your TextEditingController
                       style: const TextStyle(
@@ -381,6 +421,19 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                           fontSize: 20.0,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 13.0),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isCPasswordVisible = !_isCPasswordVisible;
+                              });
+                            },
+                            icon: _isCPasswordVisible
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
+                          ),
                         ),
                         errorStyle: const TextStyle(
                           color: Colors.red,
@@ -431,28 +484,74 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black.withOpacity(0.5),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  setState(() {
+                    _isSubmited = true;
+                  });
                   if (_formkey.currentState!.validate()) {
                     _formkey.currentState!.save();
-                    Navigator.pop(context, {
-                      'name': _nameController.text,
-                      'number': _numberController.text,
-                      'email': _emailController.text,
-                      'password': _passwordController.text,
-                      'cpassword': _confirmController.text,
+                    await _saveData();
+                    setState(() {
+                      _formkey.currentState!.reset();
+                      _nameController.clear();
+                      _numberController.clear();
+                      _emailController.clear();
+                      _emailController.clear();
+                      _passwordController.clear();
+                      _confirmController.clear();
+                      _isSubmited = false;
                     });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Data Saved!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Please Read Instruction Carefully!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 },
-                child: const Text(
-                  "Save!",
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    color: Colors.white,
-                  ),
-                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text(
+                        "Save!",
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: Colors.white,
+                        ),
+                      ),
               ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 20.0,
+        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomePage()));
+        },
+        child: const Icon(
+          Icons.home,
+          color: Colors.black,
         ),
       ),
     );
