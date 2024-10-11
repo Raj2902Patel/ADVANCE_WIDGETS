@@ -1,5 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:week_4/main_pages/setting.dart';
 import 'package:week_4/main_pages/shopping.dart';
 import 'package:week_4/pages/floating_action_button.dart';
@@ -18,6 +20,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  String name = '';
+
+  _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? '';
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadData();
+  }
 
   final List<Widget> _listitem = [
     const PageOne(),
@@ -91,10 +108,25 @@ class _HomePageState extends State<HomePage> {
           ),
           elevation: 20.0,
           centerTitle: true,
-          title: const Text(
-            "App Bar",
-            style: TextStyle(),
-          ),
+          title: name.isNotEmpty
+              ? AnimatedTextKit(
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      "Welcome, $name!",
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 21.0,
+                      ),
+                    )
+                  ],
+                  repeatForever: true,
+                  isRepeatingAnimation: true,
+                )
+              : const Text(
+                  "App Bar",
+                  style: TextStyle(),
+                ),
           actions: [
             IconButton(
               onPressed: () {
