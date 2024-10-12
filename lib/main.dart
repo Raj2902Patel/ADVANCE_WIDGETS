@@ -1,12 +1,23 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:week_4/home_page.dart';
 import 'package:week_4/loading.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      fallbackLocale: const Locale('en'),
+      supportedLocales: const [Locale('en'), Locale('hi'), Locale('gu')],
+      path: 'assets/translations',
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -27,6 +38,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Custom',
       ),
@@ -65,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                           AnimatedTextKit(
                             animatedTexts: [
                               TyperAnimatedText(
-                                "Loading...",
+                                "${tr('loading')}...",
                                 textStyle: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w700,

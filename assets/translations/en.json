@@ -1,0 +1,12 @@
+{
+  "appbar": "AppBar",
+  "select_language": "Select Language",
+  "lang_button": "Save",
+  "loading": "Loading",
+  "usr_name": "Hello World!",
+  "usr_email": "hello@example.com",
+  "home_page": "Home",
+  "favourite_page": "Favourite",
+  "shop_page": "Shopping",
+  "setting_page": "Settings"
+}

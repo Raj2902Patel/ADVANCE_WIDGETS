@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:week_4/intro_slider.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -40,7 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             AnimatedTextKit(
               animatedTexts: [
                 TyperAnimatedText(
-                  "Loading...",
+                  "${tr('loading')}...",
                   textStyle: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
