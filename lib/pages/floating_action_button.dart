@@ -44,12 +44,15 @@ class _FloatingActionButtonPageState extends State<FloatingActionButtonPage> {
                 Icons.search,
               ),
             ),
-            IconButton(
-              onPressed: () {
-                print("Notification button clicked");
-              },
-              icon: const Icon(
-                Icons.notifications_active,
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: IconButton(
+                onPressed: () {
+                  print("Notification button clicked");
+                },
+                icon: const Icon(
+                  Icons.notifications_active,
+                ),
               ),
             ),
           ],

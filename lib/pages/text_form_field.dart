@@ -12,7 +12,7 @@ class TextFormFieldPage extends StatefulWidget {
 
 class _TextFormFieldPageState extends State<TextFormFieldPage> {
   final _formkey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _isSubmited = false;
   bool _isPasswordVisible = false;
   bool _isCPasswordVisible = false;
@@ -332,8 +332,8 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                               });
                             },
                             icon: _isPasswordVisible
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                           ),
                         ),
                         errorStyle: const TextStyle(
@@ -431,8 +431,8 @@ class _TextFormFieldPageState extends State<TextFormFieldPage> {
                               });
                             },
                             icon: _isCPasswordVisible
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                           ),
                         ),
                         errorStyle: const TextStyle(

@@ -3,7 +3,6 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:week_4/main.dart';
 import 'package:week_4/main_pages/setting.dart';
 import 'package:week_4/main_pages/shopping.dart';
 import 'package:week_4/pages/floating_action_button.dart';
@@ -129,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                 )
               : Text(
                   tr("appbar"),
-                  style: TextStyle(fontSize: 22.0),
+                  style: const TextStyle(fontSize: 22.0),
                 ),
           actions: [
             IconButton(
@@ -195,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                                     Text(tr("usr_email")),
                                   ],
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.person,
                                   size: 30,
                                 )
@@ -214,10 +213,10 @@ class _HomePageState extends State<HomePage> {
               _buildListTile(2, Icons.backup, tr("shop_page")),
               _buildListTile(3, Icons.settings, tr("setting_page")),
               Container(
-                margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: ListTile(
                   splashColor: Colors.transparent,
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.language,
                     color: Colors.black,
                   ),
@@ -226,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => LanguageSelectionPage()),
+                          builder: (context) => const LanguageSelectionPage()),
                     );
                   },
                 ),

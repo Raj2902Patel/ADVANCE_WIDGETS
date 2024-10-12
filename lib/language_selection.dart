@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:week_4/home_page.dart';
+import 'package:week_4/loading.dart';
 
 class LanguageSelectionPage extends StatefulWidget {
+  const LanguageSelectionPage({super.key});
+
   @override
   _LanguageSelectionPageState createState() => _LanguageSelectionPageState();
 }
 
 class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
-  String _selectedLanguage = '';
+  String _selectedLanguage = 'en';
 
   @override
   void initState() {
@@ -38,7 +42,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
             padding: const EdgeInsets.only(left: 30.0),
             child: Text(
               tr('select_language'),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 25.0,
               ),
@@ -46,7 +50,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
           ),
         ), // Localized title
         body: ListView(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           children: <Widget>[
             _buildLanguageTile('English', 'en'),
             _buildLanguageTile('हिंदी', 'hi'),
@@ -70,8 +74,8 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
         });
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8.0),
-        padding: EdgeInsets.all(16.0),
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: isSelected ? Colors.blueGrey.withOpacity(0.5) : Colors.white,
           border: Border.all(
@@ -87,7 +91,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
               color: isSelected ? Colors.black : Colors.grey,
               size: isSelected ? 30 : 30,
             ),
-            SizedBox(width: 16.0),
+            const SizedBox(width: 16.0),
             Text(
               language,
               style: TextStyle(
@@ -111,16 +115,17 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
             backgroundColor: Colors.black.withOpacity(0.7),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           },
           label: Text(
             tr("lang_button"),
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 22.0,
             ),
           ),
-          icon: Icon(
+          icon: const Icon(
             Icons.save_alt_sharp,
             color: Colors.white,
           ),
@@ -131,11 +136,11 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
 
   void _changeLanguage(String code) async {
     if (code == 'en') {
-      context.setLocale(Locale('en'));
+      context.setLocale(const Locale('en'));
     } else if (code == 'gu') {
-      context.setLocale(Locale('gu'));
+      context.setLocale(const Locale('gu'));
     } else if (code == 'hi') {
-      context.setLocale(Locale('hi'));
+      context.setLocale(const Locale('hi'));
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
