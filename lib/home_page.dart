@@ -1,13 +1,17 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:week_4/main.dart';
 import 'package:week_4/main_pages/setting.dart';
 import 'package:week_4/main_pages/shopping.dart';
 import 'package:week_4/pages/floating_action_button.dart';
 import 'package:week_4/main_pages/home.dart';
 
 import 'package:week_4/main_pages/favourite.dart';
+
+import 'language_selection.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -123,9 +127,9 @@ class _HomePageState extends State<HomePage> {
                   repeatForever: true,
                   isRepeatingAnimation: true,
                 )
-              : const Text(
-                  "App Bar",
-                  style: TextStyle(),
+              : Text(
+                  tr("appbar"),
+                  style: TextStyle(fontSize: 22.0),
                 ),
           actions: [
             IconButton(
@@ -136,12 +140,15 @@ class _HomePageState extends State<HomePage> {
                 Icons.search,
               ),
             ),
-            IconButton(
-              onPressed: () {
-                print("Notification button clicked");
-              },
-              icon: const Icon(
-                Icons.notifications_active,
+            Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: IconButton(
+                onPressed: () {
+                  print("Notification Button Clicked");
+                },
+                icon: const Icon(
+                  Icons.notification_add,
+                ),
               ),
             ),
           ],
@@ -176,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                           dividerColor: Colors.transparent,
                           splashColor: Colors.transparent,
                         ),
-                        child: const Column(
+                        child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -184,8 +191,8 @@ class _HomePageState extends State<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Hello World!"),
-                                    Text("hello@example.com"),
+                                    Text(tr("usr_name")),
+                                    Text(tr("usr_email")),
                                   ],
                                 ),
                                 Icon(
@@ -201,10 +208,29 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              _buildListTile(0, Icons.backup, "Home"),
-              _buildListTile(1, Icons.folder_shared_rounded, "Favourite"),
-              _buildListTile(2, Icons.backup, "Shopping"),
-              _buildListTile(3, Icons.settings, "Settings"),
+              _buildListTile(0, Icons.backup, tr("home_page")),
+              _buildListTile(
+                  1, Icons.folder_shared_rounded, tr("favourite_page")),
+              _buildListTile(2, Icons.backup, tr("shop_page")),
+              _buildListTile(3, Icons.settings, tr("setting_page")),
+              Container(
+                margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: ListTile(
+                  splashColor: Colors.transparent,
+                  leading: Icon(
+                    Icons.language,
+                    color: Colors.black,
+                  ),
+                  title: Text(tr("select_language")),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LanguageSelectionPage()),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -220,14 +246,15 @@ class _HomePageState extends State<HomePage> {
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
               icon: const Icon(Icons.home),
-              title: _selectedIndex == 0 ? const Text("Home") : const Text(""),
+              title:
+                  _selectedIndex == 0 ? Text(tr("home_page")) : const Text(""),
               activeColor: Colors.blueGrey.withOpacity(0.6),
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
               icon: const Icon(Icons.favorite),
               title: _selectedIndex == 1
-                  ? const Text('Favourite')
+                  ? Text(tr("favourite_page"))
                   : const Text(""),
               activeColor: Colors.cyan,
               textAlign: TextAlign.center,
@@ -235,14 +262,15 @@ class _HomePageState extends State<HomePage> {
             BottomNavyBarItem(
               icon: const Icon(Icons.shop),
               title:
-                  _selectedIndex == 2 ? const Text("Shopping") : const Text(""),
+                  _selectedIndex == 2 ? Text(tr("shop_page")) : const Text(""),
               activeColor: Colors.redAccent,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
               icon: const Icon(Icons.settings),
-              title:
-                  _selectedIndex == 3 ? const Text("Setting") : const Text(""),
+              title: _selectedIndex == 3
+                  ? Text(tr("setting_page"))
+                  : const Text(""),
               activeColor: Colors.deepOrangeAccent,
               textAlign: TextAlign.center,
             ),
