@@ -92,7 +92,7 @@ class _CarouselSliderPageState extends State<CarouselSliderPage> {
         for (int i = 0; i < imgList.length; i++)
           InkWell(
             onTap: () {
-              _carouselController.animateToPage(i);
+              // _carouselController.animateToPage(i);
             },
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,

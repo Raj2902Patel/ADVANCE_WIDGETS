@@ -115,8 +115,11 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
             backgroundColor: Colors.black.withOpacity(0.7),
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+              (Route<dynamic> route) => false, // Remove all previous routes
+            );
           },
           label: Text(
             tr("lang_button"),
